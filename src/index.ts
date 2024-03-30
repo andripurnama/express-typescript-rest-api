@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import { indexRouter } from './routes';
 import 'reflect-metadata';
 import { DatabaseConnection } from './configurations/index';
+import Logger from './libs/logger';
 //App Varaibles
 dotenv.config();
 
@@ -21,7 +22,7 @@ app.use('/', indexRouter);
 DatabaseConnection.initialize()
   .then(async () =>
     app.listen(process.env.PORT, async () => {
-      console.log(`app running on port ${process.env.PORT}`);
+      Logger.info(`Server is up and running on port ${process.env.APP_PORT}`);
     })
   )
-  .catch((error) => console.log(error));
+  .catch((error) => Logger.error(error));
